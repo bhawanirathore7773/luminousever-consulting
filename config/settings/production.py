@@ -11,3 +11,5 @@ SECURE_CONTENT_TYPE_NOSNIFF=True
 X_FRAME_OPTIONS="DENY"
 SECURE_PROXY_SSL_HEADER=("HTTP_X_FORWARDED_PROTO","https")
 CSRF_TRUSTED_ORIGINS=[x.strip() for x in os.environ.get("CSRF_TRUSTED_ORIGINS","").split(",") if x.strip()]
+ALLOWED_HOSTS=[x.strip() for x in os.environ.get("ALLOWED_HOSTS","").split(",") if x.strip()]
+SECURE_CROSS_ORIGIN_OPENER_POLICY="same-origin"
