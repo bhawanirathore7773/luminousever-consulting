@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 from django.utils import timezone
 from apps.services.models import Service
 from apps.solutions.models import Solution
@@ -11,9 +10,8 @@ from apps.solutions.seed_data import SOLUTIONS
 from apps.industries.seed_data import INDUSTRIES
 from apps.case_studies.seed_data import CASE_STUDIES
 from apps.insights.seed_data import INSIGHTS
-
 class Command(BaseCommand):
-    help="Seed the initial public content without overwriting existing records."
+    help="Seed initial public content without overwriting existing records."
     def handle(self,*args,**kwargs):
         for name,slug,summary in SERVICES: Service.objects.get_or_create(slug=slug,defaults={"name":name,"summary":summary,"content":summary})
         for name,slug,summary in SOLUTIONS: Solution.objects.get_or_create(slug=slug,defaults={"name":name,"summary":summary,"content":summary,"published_at":timezone.now()})
