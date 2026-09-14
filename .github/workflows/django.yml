@@ -28,6 +28,10 @@ jobs:
           SECRET_KEY: ci-production-check-secret
           ALLOWED_HOSTS: example.com
           CSRF_TRUSTED_ORIGINS: https://example.com
+      - run: python manage.py makemigrations --check --dry-run
+        env:
+          DEBUG: "True"
+          SECRET_KEY: ci-test-secret
       - run: python manage.py check
         env:
           DEBUG: "True"
