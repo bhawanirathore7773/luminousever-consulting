@@ -13,7 +13,7 @@ DEFAULT_FROM_EMAIL=os.environ.get("DEFAULT_FROM_EMAIL","noreply@example.com")
 INSTALLED_APPS=[
 "django.contrib.admin","django.contrib.auth","django.contrib.contenttypes","django.contrib.sessions",
 "django.contrib.messages","django.contrib.staticfiles","rest_framework",
-"apps.core","apps.accounts","apps.services","apps.solutions","apps.industries","apps.sap_expertise",
+"apps.core","apps.services","apps.solutions","apps.industries","apps.sap_expertise",
 "apps.case_studies","apps.insights","apps.team","apps.contact","apps.assessments","apps.seo",
 ]
 MIDDLEWARE=[
