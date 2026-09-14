@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.13"}
       - run: pip install -r requirements.txt
-      - run: python manage.py check --deploy
+      - run: python manage.py check --deploy --settings=config.settings.production
         env:
           DEBUG: "False"
           SECRET_KEY: ci-production-check-secret
