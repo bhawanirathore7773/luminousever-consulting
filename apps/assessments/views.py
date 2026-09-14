@@ -1,5 +1,7 @@
+import json
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.http import require_POST
 from .forms import AssessmentLeadForm
 from .models import AssessmentSubmission
 
@@ -13,18 +15,17 @@ QUESTIONS=[
 ("change","How prepared is the organization for major SAP transformation?"),
 ("operations","How proactive and measurable is SAP application management?")
 ]
-def assessment(request):
-    return render(request,"pages/assessment.html",{"questions":QUESTIONS})
+def assessment(request): return render(request,"pages/assessment.html",{"questions":QUESTIONS})
+@require_POST
 def submit(request):
-    if request.method!="POST": return JsonResponse({"error":"Method not allowed"},status=405)
     form=AssessmentLeadForm(request.POST)
     if not form.is_valid(): return JsonResponse({"errors":form.errors},status=400)
-    import json
-    try: answers=json.loads(request.POST.get("answers","{}"))
-    except ValueError: return JsonResponse({"error":"Invalid assessment data"},status=400)
-    score=sum(max(0,min(4,int(answers.get(key,0)))) for key,_ in QUESTIONS)
-    maximum=len(QUESTIONS)*4
-    pct=round(score/maximum*100) if maximum else 0
+    try: raw=json.loads(request.POST.get("answers","{}"))
+    except (TypeError,ValueError): return JsonResponse({"error":"Invalid assessment data"},status=400)
+    if not isinstance(raw,dict) or set(raw)!={key for key,_ in QUESTIONS}: return JsonResponse({"error":"Please complete every question."},status=400)
+    try: answers={key:max(0,min(4,int(raw[key]))) for key,_ in QUESTIONS}
+    except (TypeError,ValueError): return JsonResponse({"error":"Invalid answer values."},status=400)
+    score=sum(answers.values()); pct=round(score/(len(QUESTIONS)*4)*100)
     maturity="Emerging" if pct<40 else "Developing" if pct<70 else "Advanced"
-    answers={key:max(0,min(4,int(answers.get(key,0)))) for key,_ in QUESTIONS}\n    obj=AssessmentSubmission.objects.create(**form.cleaned_data,score=score,maturity=maturity,answers=answers)
+    obj=AssessmentSubmission.objects.create(**form.cleaned_data,score=score,maturity=maturity,answers=answers)
     return JsonResponse({"success":True,"score":score,"percentage":pct,"maturity":maturity,"id":obj.pk})
