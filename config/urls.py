@@ -15,7 +15,7 @@ urlpatterns = [
     path("team/", include("apps.team.urls")),
     path("contact/", include("apps.contact.urls")),
     path("assessment/", include("apps.assessments.urls")),
-]
+    path("", include("apps.core.urls")),\n    path("services/", include("apps.services.urls")),\n    path("solutions/", include("apps.solutions.urls")),\n    path("industries/", include("apps.industries.urls")),\n    path("sap/", include("apps.sap_expertise.urls")),\n    path("case-studies/", include("apps.case_studies.urls")),\n    path("insights/", include("apps.insights.urls")),\n    path("team/", include("apps.team.urls")),\n    path("assessment/", include("apps.assessments.urls")),\n    path("seo/", include("apps.seo.urls")),\n    path("contact/", include("apps.contact.urls")),\n]
 handler404="apps.core.views.error_404"
 handler403="apps.core.views.error_403"
 handler500="apps.core.views.error_500"
