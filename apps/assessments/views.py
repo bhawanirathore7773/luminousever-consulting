@@ -1,3 +1,4 @@
+from apps.core.security import rate_limit
 import json
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -18,6 +19,8 @@ QUESTIONS=[
 def assessment(request): return render(request,"pages/assessment.html",{"questions":QUESTIONS})
 @require_POST
 def submit(request):
+    if not rate_limit(request,"assessment",limit=5,window=300): return JsonResponse({"error":"Too many requests. Please try again later."},status=429)
+
     form=AssessmentLeadForm(request.POST)
     if not form.is_valid(): return JsonResponse({"errors":form.errors},status=400)
     try: raw=json.loads(request.POST.get("answers","{}"))
