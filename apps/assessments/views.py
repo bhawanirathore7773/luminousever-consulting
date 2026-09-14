@@ -22,9 +22,9 @@ def submit(request):
     import json
     try: answers=json.loads(request.POST.get("answers","{}"))
     except ValueError: return JsonResponse({"error":"Invalid assessment data"},status=400)
-    score=sum(max(0,min(4,int(v))) for v in answers.values() if str(v).isdigit())
+    score=sum(max(0,min(4,int(answers.get(key,0)))) for key,_ in QUESTIONS)
     maximum=len(QUESTIONS)*4
     pct=round(score/maximum*100) if maximum else 0
     maturity="Emerging" if pct<40 else "Developing" if pct<70 else "Advanced"
-    obj=AssessmentSubmission.objects.create(**form.cleaned_data,score=score,maturity=maturity,answers=answers)
+    answers={key:max(0,min(4,int(answers.get(key,0)))) for key,_ in QUESTIONS}\n    obj=AssessmentSubmission.objects.create(**form.cleaned_data,score=score,maturity=maturity,answers=answers)
     return JsonResponse({"success":True,"score":score,"percentage":pct,"maturity":maturity,"id":obj.pk})
