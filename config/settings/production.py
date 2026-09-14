@@ -9,7 +9,5 @@ SECURE_HSTS_PRELOAD=True
 SECURE_REFERRER_POLICY="strict-origin-when-cross-origin"
 SECURE_CONTENT_TYPE_NOSNIFF=True
 X_FRAME_OPTIONS="DENY"
-
 SECURE_PROXY_SSL_HEADER=("HTTP_X_FORWARDED_PROTO","https")
 CSRF_TRUSTED_ORIGINS=[x.strip() for x in os.environ.get("CSRF_TRUSTED_ORIGINS","").split(",") if x.strip()]
-SECURE_REFERRER_POLICY="strict-origin-when-cross-origin"
