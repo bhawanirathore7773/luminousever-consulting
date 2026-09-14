@@ -2,7 +2,11 @@
 .github
 .env
 __pycache__
-*.pyc
+*.py[cod]
 .pytest_cache
-.DS_Store
+.mypy_cache
+.venv
+venv
 node_modules
+staticfiles
+media
