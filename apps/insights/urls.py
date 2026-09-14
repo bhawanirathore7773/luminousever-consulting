@@ -1,4 +1,4 @@
 from django.urls import path
-from .views import listing,detail
+from .views import detail,listing
 app_name="insights"
 urlpatterns=[path("",listing,name="list"),path("<slug:slug>/",detail,name="detail")]
