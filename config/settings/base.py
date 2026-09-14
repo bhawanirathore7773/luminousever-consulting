@@ -45,3 +45,7 @@ LANGUAGE_CODE="en-us"
 TIME_ZONE="Asia/Kolkata"
 LEAD_NOTIFICATION_EMAIL=LEAD_NOTIFICATION_EMAIL
 DEFAULT_FROM_EMAIL=DEFAULT_FROM_EMAIL
+
+if DEBUG and "debug_toolbar" in INSTALLED_APPS:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
