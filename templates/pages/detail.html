@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block content %}<section class="page-head"><span class="eyebrow">LUMINOUSEVER CONSULTING</span><h1>{{ item.name|default:item.title }}</h1><p>{{ item.summary|default:item.excerpt }}</p></section><section class="section prose">{{ item.content|linebreaks }}</section>{% endblock %}
