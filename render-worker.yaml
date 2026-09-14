@@ -1,0 +1,6 @@
+# Optional separate Render worker definition if you prefer managing the worker independently.
+# The primary Render Blueprint is render.yaml.
+type: worker
+runtime: python
+buildCommand: pip install -r requirements.txt
+startCommand: celery -A config worker --loglevel=WARNING
