@@ -11,13 +11,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes: [postgres_data:/var/lib/postgresql/data]
-  db:
-    image: postgres:17-alpine
-    environment:
-      POSTGRES_DB: luminousever
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes: [postgres_data:/var/lib/postgresql/data]
   redis:
     image: redis:8-alpine
     volumes: [redis_data:/data]
