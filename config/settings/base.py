@@ -97,3 +97,8 @@ CSP_IMG_SRC=("'self'","data:","https:")
 CSP_FONT_SRC=("'self'","data:")
 
 CACHES["default"]["OPTIONS"]["IGNORE_EXCEPTIONS"] = True
+CELERY_BROKER_URL = env("REDIS_URL", default="redis://127.0.0.1:6379/1")
+CELERY_RESULT_BACKEND = env("REDIS_URL", default="redis://127.0.0.1:6379/1")
+CELERY_TASK_IGNORE_RESULT = True
+CELERY_TASK_ACKS_LATE = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
